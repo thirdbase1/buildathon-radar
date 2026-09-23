@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buildathon Radar — Akindo ecosystem intelligence</title>
+<meta name="description" content="Live-scraped intelligence on Akindo buildathons: the latest buildathon's 159 submissions, 2,381 EVM projects, and a full participation plan for the Mezo Buildathon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<nav class="nav" id="nav">
+  <a class="nav-brand" href="#top"><span class="brand-mark"></span>Buildathon<span class="brand-accent">Radar</span></a>
+  <div class="nav-links">
+    <a href="#latest">Latest Buildathon</a>
+    <a href="#explorer">EVM Explorer</a>
+    <a href="#env">Env Catalog</a>
+    <a href="#mezo">Mezo Plan</a>
+    <a href="#collisions">Collisions</a>
+  </div>
+  <span class="nav-badge">scraped 2026-09-23</span>
+</nav>
+
+<header class="hero" id="top">
+  <p class="kicker">Akindo ecosystem intelligence · live API scrape</p>
+  <h1>What builders actually shipped<br>on Akindo's latest buildathon —<br><span class="accent">and what's still wide open.</span></h1>
+  <p class="hero-sub">Every number on this page comes from a full scrape of Akindo's public API: 4,595 products, 74 buildathons, 313 waves. No estimates.</p>
+  <div class="hero-stats" id="hero-stats"></div>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#explorer">Explore 2,381 EVM projects</a>
+    <a class="btn btn-ghost" href="#mezo">Mezo participation plan</a>
+  </div>
+</header>
+
+<main>
+
+<section id="latest" class="section">
+  <div class="section-head">
+    <span class="section-index">01</span>
+    <div>
+      <h2>The latest buildathon</h2>
+      <p class="section-sub" id="latest-sub"></p>
+    </div>
+  </div>
+
+  <div class="panel" id="midnight-card">
+    <div class="mid-head">
+      <div>
+        <h3 id="mid-title"></h3>
+        <p class="mid-host" id="mid-host"></p>
+      </div>
+      <div class="mid-pools" id="mid-pools"></div>
+    </div>
+    <div class="mid-timeline" id="mid-timeline"></div>
+
+    <div class="grid-2">
+      <div class="subpanel">
+        <h4>Judging rubric</h4>
+        <div id="mid-rubric" class="bars"></div>
+        <p class="note">Hard gate: at least one Compact contract that compiles, or automatic disqualification. Resubmissions across waves must show meaningful new progress.</p>
+      </div>
+      <div class="subpanel">
+        <h4>Top categories</h4>
+        <div id="mid-cats" class="bars"></div>
+      </div>
+    </div>
+    <div class="subpanel">
+      <h4>Self-reported stack</h4>
+      <div id="mid-stack" class="chips"></div>
+    </div>
+
+    <h4 class="mt">Submission quality signals <span class="h-note">— the bar is low; every list below is named</span></h4>
+    <div class="stat-row" id="mid-quality"></div>
+
+    <div class="tabs" id="mid-tabs"></div>
+    <div class="tab-body" id="mid-tab-body"></div>
+  </div>
+
+  <div class="callout warn" id="collision-teaser"></div>
+</section>
+
+<section id="explorer" class="section">
+  <div class="section-head">
+    <span class="section-index">02</span>
+    <div>
+      <h2>The EVM corpus</h2>
+      <p class="section-sub" id="explorer-sub"></p>
+    </div>
+  </div>
+
+  <div class="stat-row" id="evm-stats"></div>
+
+  <div class="panel">
+    <div class="explorer-controls">
+      <input type="search" id="q" placeholder="Search EVM projects by name, tagline, community, chain…" aria-label="Search projects">
+      <select id="chain-filter" aria-label="Filter by chain"></select>
+      <select id="cat-filter" aria-label="Filter by category"></select>
+      <select id="sort" aria-label="Sort">
+        <option value="subs">Most submissions</option>
+        <option value="name">Name A–Z</option>
+        <option value="community">Community</option>
+      </select>
+      <button id="reset" class="btn btn-small">Reset</button>
+    </div>
+    <p class="result-count" id="result-count"></p>
+    <div class="table-wrap">
+      <table class="grid" id="evm-table">
+        <thead><tr>
+          <th>Project</th><th>Community</th><th>Chains</th><th>Categories</th><th class="num">Submissions</th>
+        </tr></thead>
+        <tbody id="evm-body"></tbody>
+      </table>
+    </div>
+    <p class="load-more-note" id="load-note"></p>
+    <button id="load-more" class="btn btn-ghost">Load more</button>
+  </div>
+
+  <div class="grid-2 mt">
+    <div class="panel">
+      <h4>Where EVM builders build (chain mentions)</h4>
+      <div id="chain-chart" class="hbar-chart"></div>
+    </div>
+    <div class="panel">
+      <h4>Track-sized slices vs Mezo's brief</h4>
+      <div id="slice-chart" class="hbar-chart"></div>
+      <p class="note">Mezo-aware products found in the entire 4,595-product catalog: <strong class="accent">zero</strong>. First-mover positioning is wide open.</p>
+    </div>
+  </div>
+</section>
+
+<section id="env" class="section">
+  <div class="section-head">
+    <span class="section-index">03</span>
+    <div>
+      <h2>Environmental / ReFi catalog</h2>
+      <p class="section-sub">A selection of the 35 environmental, sustainability and ReFi projects found on Akindo (0.8% of the catalog), with submission history. Full list in the workspace dataset.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="table-wrap">
+      <table class="grid" id="env-table">
+        <thead><tr><th>Project</th><th>Community</th><th>Tagline</th><th>Events</th><th class="num">Subs</th></tr></thead>
+        <tbody id="env-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="mezo" class="section">
+  <div class="section-head">
+    <span class="section-index">04</span>
+    <div>
+      <h2>Mezo buildathon — participation plan</h2>
+      <p class="section-sub" id="mezo-sub"></p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="panel">
+      <h4>Two waves, two payouts</h4>
+      <table class="kv" id="mezo-waves"></table>
+      <p class="note" id="mezo-total"></p>
+    </div>
+    <div class="panel">
+      <h4>Judging rubric</h4>
+      <div id="mezo-rubric" class="bars"></div>
+      <h4 class="mt">Tracks</h4>
+      <ul class="ticks" id="mezo-tracks"></ul>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="panel">
+      <h4>How the prize actually reaches you</h4>
+      <ol class="steps" id="payout-steps"></ol>
+      <div class="formula" id="payout-formula"></div>
+      <h4 class="mt">KYB documents to prepare now</h4>
+      <ul class="ticks" id="kyb-docs"></ul>
+    </div>
+    <div class="panel">
+      <h4>Entry questions on the form</h4>
+      <div class="chips" id="mezo-entry"></div>
+      <h4 class="mt">Registration intel</h4>
+      <ul class="ticks" id="mezo-notes"></ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h4>Six scored project ideas</h4>
+    <div class="table-wrap">
+      <table class="grid" id="plays-table">
+        <thead><tr><th>Idea</th><th>What it is</th><th>Track</th><th>Effort</th></tr></thead>
+        <tbody id="plays-body"></tbody>
+      </table>
+    </div>
+    <p class="note">Recommended for Wave 1: <strong>MUSD Pool &amp; Yield Radar</strong> — highest demo-ability, no contract risk, and dashboards/alerts are the most-resubmitted product category on Akindo. Upgrade to the bridge module (Wave 2 headline) and the Telegram bot (Wave 2 distribution) after the $2,000 wave pays out.</p>
+  </div>
+</section>
+
+<section id="collisions" class="section">
+  <div class="section-head">
+    <span class="section-index">05</span>
+    <div>
+      <h2>Lookalike names</h2>
+      <p class="section-sub">Three similarly-named payment projects, none of them the same. Key on product IDs, never on names.</p>
+    </div>
+  </div>
+  <div class="cards-3" id="veilpay-cards"></div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <h5>Sources</h5>
+      <p>Live Akindo public API, 2026-09-23: <code>/public/wave-hacks</code> (74 buildathons), <code>/public/wave-hacks/{id}/waves</code> (313 waves), <code>/public/hackathons</code> (94), <code>/public/products</code> (4,595 across 230 pages), full submission list for Midnight Wave 1 (159), plus per-product and per-event detail endpoints.</p>
+    </div>
+    <div>
+      <h5>Datasets</h5>
+      <ul class="footer-links">
+        <li><a href="akindo-buildathon-analysis.md">akindo-buildathon-analysis.md — full report</a></li>
+        <li><a href="akindo-evm-mezo-brief.md">akindo-evm-mezo-brief.md — EVM + Mezo brief</a></li>
+        <li><a href="mezo-buildathon-plan.md">mezo-buildathon-plan.md — execution plan</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Caveats</h5>
+      <p>886 products carry no stack signal anywhere and are excluded from the EVM set (mostly 2023-era stubs). Votes and earnings are not public until judging closes. Chain detection is keyword-based; cross-chain projects may list several chains. This build ships the top EVM projects by submission count; the full 2,381-row dataset is regenerated by the research skill.</p>
+    </div>
+  </div>
+  <p class="footer-base">Buildathon Radar · generated from a live Akindo scrape · not affiliated with Akindo or Mezo</p>
+</footer>
+
+</main>
+
+<script src="assets/app.js" type="module"></script>
+</body>
+</html>
